@@ -55,7 +55,7 @@ evals/                       behaviour test prompts for the skill
 
 ## Run the scripts yourself
 
-No dependencies beyond Python 3.9+. One command builds every language and refuses to publish if any check fails:
+No dependencies beyond Python 3.11+ (tested on 3.11 and 3.14). One command builds every language and refuses to publish if any check fails:
 ```bash
 python3 india-stock-mentor/scripts/publish_report.py \
   examples/acutaas/input.json examples/acutaas/content_en.json examples/acutaas/content_mr.json \

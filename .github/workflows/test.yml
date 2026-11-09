@@ -4,8 +4,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false            # one version failing shouldn't cancel the others
       matrix:
-        python-version: ["3.9", "3.12"]
+        python-version: ["3.11", "3.14"]   # oldest supported + newest stable
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
