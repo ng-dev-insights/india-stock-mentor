@@ -1,0 +1,19 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Dry run touches nothing
+        run: python india-stock-mentor/scripts/publish_report.py examples/acutaas/input.json examples/acutaas/content_en.json examples/acutaas/content_mr.json --out /tmp/dry --dry-run && test ! -e /tmp/dry
+      - name: Example publishes through the gate
+        run: python india-stock-mentor/scripts/publish_report.py examples/acutaas/input.json examples/acutaas/content_en.json examples/acutaas/content_mr.json --out /tmp/build
