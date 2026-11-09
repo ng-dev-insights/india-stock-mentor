@@ -1,5 +1,7 @@
 # India Stock Mentor
 
+[![tests](https://github.com/ng-dev-insights/india-stock-mentor/actions/workflows/test.yml/badge.svg)](https://github.com/ng-dev-insights/india-stock-mentor/actions/workflows/test.yml)
+
 A [Claude skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) that teaches beginners how Indian stocks work, **in their own language**. Ask about any NSE/BSE company and it explains the business, checks the numbers, shows what changed recently, and turns it into a lesson, without telling you what to buy or sell.
 
 > **Status:** early release (v0.3.1). The calculation engine is tested, but the skill has had little use by real beginners yet. Feedback and issues are very welcome.
