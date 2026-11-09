@@ -1,0 +1,278 @@
+{
+ "lang": "en",
+ "company": "Acutaas Chemicals Ltd",
+ "symbol": "NSE: ACUTAAS · BSE: 543349",
+ "price_line": "₹3,787 · price as of 6 Nov 2026",
+ "basis_line": "Consolidated figures, FY26 (year ended March 2026)",
+ "chips": [
+  {
+   "label": "Market cap",
+   "value": "₹31,841 cr"
+  },
+  {
+   "label": "Net margin",
+   "value": "26.6%"
+  },
+  {
+   "label": "Promoter holding",
+   "value": "32.7% (unchanged 5 quarters)"
+  },
+  {
+   "label": "Dividend yield",
+   "value": "0.1%"
+  }
+ ],
+ "business": "Acutaas (called Ami Organics until 2025, based in Surat) makes the chemical building blocks that drug companies turn into medicines (pharma intermediates). Think of a company making engine parts for car makers: it doesn’t sell cars, but cars can’t be built without it. It is also growing a newer business in specialty chemicals for batteries and semiconductors.",
+ "metrics": [
+  {
+   "key": "revenue_cagr_pct",
+   "label": "Revenue CAGR (4 yrs)",
+   "native": "Average yearly sales growth",
+   "meaning": "Sales grew from ₹520 cr to ₹1,339 cr, about 27% a year on average."
+  },
+  {
+   "key": "profit_cagr_pct",
+   "label": "Profit CAGR (4 yrs)",
+   "native": "Average yearly profit growth",
+   "meaning": "Profit went from ₹72 cr to ₹356 cr, but dipped to ₹43 cr in FY24, so growth was uneven."
+  },
+  {
+   "key": "roce_pct",
+   "label": "ROCE",
+   "native": "Return on all capital in the business",
+   "meaning": "About ₹29 earned a year on every ₹100 invested in the business."
+  },
+  {
+   "key": "roe_pct",
+   "label": "ROE",
+   "native": "Return on the owners’ money",
+   "meaning": "About ₹21 of profit a year on every ₹100 of shareholders’ money."
+  },
+  {
+   "key": "debt_to_equity",
+   "label": "Debt-to-equity",
+   "native": "Borrowings vs owners’ money",
+   "meaning": "Almost no debt. It holds about ₹198 cr more cash than it owes."
+  },
+  {
+   "key": "interest_coverage",
+   "label": "Interest coverage",
+   "native": "Ability to pay interest",
+   "meaning": "Profit covers interest more than 100 times over. Not a concern."
+  },
+  {
+   "key": "cash_conversion",
+   "label": "Cash conversion",
+   "native": "Is profit turning into cash?",
+   "meaning": "About ₹80 of real cash for every ₹100 of reported profit (FY25–FY26), right at the comfortable line. Worth watching."
+  },
+  {
+   "key": "pe",
+   "label": "P/E (FY26)",
+   "native": "Price ÷ last year’s profit per share",
+   "meaning": "Investors pay about ₹89 for every ₹1 of last year’s profit per share. The broad sector average is about ₹46, but close peers such as Sai Life (~95) and Anthem (~79) are also priced high."
+  },
+  {
+   "key": "pe_ttm",
+   "label": "P/E (TTM)",
+   "native": "Price ÷ last 4 quarters’ profit per share",
+   "meaning": "On the latest 4 quarters’ profit, investors pay about ₹73 per ₹1. This is the more current figure, and the one the scenarios and calculator use."
+  },
+  {
+   "key": "promoter_pledge_pct",
+   "label": "Promoter pledge",
+   "native": "Founders’ shares given as loan collateral",
+   "meaning": "No pledged shares, so no risk of lenders force-selling them in a fall."
+  }
+ ],
+ "history": {
+  "title": "How the business has grown",
+  "unit": "₹ crore",
+  "years": [
+   "FY22",
+   "FY23",
+   "FY24",
+   "FY25",
+   "FY26"
+  ],
+  "series": [
+   {
+    "name": "Revenue",
+    "values": [
+     520,
+     617,
+     718,
+     1007,
+     1339
+    ]
+   },
+   {
+    "name": "Net profit",
+    "values": [
+     72,
+     83,
+     43,
+     159,
+     356
+    ]
+   }
+  ]
+ },
+ "positives": [
+  "Fast growth: in FY26, sales rose 33% and profit rose 124%.",
+  "Wider margins: operating margin rose from about 23% to 36%.",
+  "Almost no debt, with net cash in hand.",
+  "Management raised FY27 guidance to about 30% revenue growth (from 25%) and a 38–40% EBITDA margin."
+ ],
+ "concerns": [
+  "Expensive: P/E of about 89, roughly double the broad sector average (~46), though close contract-manufacturing peers also trade at 80–95. The stock is up about 135% in a year, so high expectations are already in the price.",
+  "The newer specialty chemicals business (battery and semiconductor chemicals) shrank about 20% in the latest quarter. The diversification story isn’t proven yet.",
+  "Very volatile: it moves about 3.4× as much as the Nifty, and fell 10% in a single day in April 2026.",
+  "Promoter stake fell from about 41% after the IPO to 32.7%, mostly through new share issues (dilution) plus some promoter sales in 2025. It has been unchanged for the last 5 quarters."
+ ],
+ "questions": [
+  "Will the company keep raising money by issuing new shares? Each issue means existing shareholders own a little less.",
+  "Is the margin jump permanent (better product mix) or temporary (a few large orders)?",
+  "Can it grow 25%+ a year for many years? Paying ₹73–89 for every ₹1 of profit assumes roughly that."
+ ],
+ "lesson": {
+  "title": "What does paying ₹73 for ₹1 of profit mean?",
+  "body": [
+   "Suppose a shop earns ₹1 lakh a year and you pay ₹73 lakh for it. Even if its profit grows 25% every year, in 5 years it will earn about ₹3 lakh a year: three times as much.",
+   "If buyers then pay only ₹30 for every ₹1 of profit (still above the sector average), the shop is worth about ₹92 lakh. Profit tripled, but your money grew only about 26%, roughly 4.7% a year.",
+   "That’s why a great company and a great investment are not the same thing. The price you pay matters.",
+   "The calculator below starts from Acutaas’s real numbers. Move the sliders to see how growth, years and what investors pay per ₹1 of profit change the price."
+  ],
+  "simulator": {
+   "price": 3786.6,
+   "eps": 52.0,
+   "growth": 25,
+   "years": 5,
+   "future_pe": 30,
+   "eps_basis": "ttm"
+  }
+ },
+ "quiz": {
+  "q": "Acutaas’s P/E is about 73 (based on the last 4 quarters). What does that tell you?",
+  "options": [
+   "The company will grow 73 times",
+   "Investors are paying about ₹73 for every ₹1 of yearly profit per share",
+   "You will get your money back in 73 years"
+  ],
+  "answer": 1,
+  "explain": "P/E compares today’s price with yearly profit per share. It doesn’t predict growth, and it isn’t a payback period: the company keeps most of its profit instead of paying it out to you."
+ },
+ "sources": [
+  "Tickertape: FY26 results, valuation; Trendlyne: price (6 Nov 2026) and shareholding",
+  "Company Q2 FY27 results (27 Oct 2026), via Angel One and Indian Chemical News",
+  "Screener.in and Value Research: history, shareholding",
+  "Simply Wall St: debt history",
+  "Company investor presentation (NSE, May 2026)"
+ ],
+ "disclaimer": "This report is for learning only. It is not a buy or sell recommendation. Figures are as of the dates shown; check the company’s official filings before making any decision.",
+ "labels": {},
+ "events": {
+  "window": "Last 90 days: 11 Aug – 9 Nov 2026. Sources: company results and NSE/BSE filings first, news for context.",
+  "correction": "An earlier version of this report listed “promoters reducing their stake” as a concern. Filings show promoter holding has been unchanged at 32.66% for five quarters; the older decline came mainly from new share issues.",
+  "items": [
+   {
+    "date": "27 Oct 2026",
+    "tag": "good",
+    "importance": "high",
+    "title": "Q2 FY27 results: revenue +43%, profit +71% vs the same quarter last year",
+    "why": "Revenue was ₹437 cr and profit ₹123 cr. EBITDA margin rose to about 40% from 31%, so the business is earning more on every rupee of sales.",
+    "not_conclude": "One strong quarter isn’t a trend, and margins this high may not last if the product mix changes.",
+    "source": "Company results (27 Oct 2026); Angel One, Indian Chemical News",
+    "kind": "business",
+    "confidence": "filing"
+   },
+   {
+    "date": "27 Oct 2026",
+    "tag": "good",
+    "importance": "medium",
+    "title": "FY27 guidance raised to ~30% revenue growth and 38–40% EBITDA margin",
+    "why": "Management expects the rest of the year to stay strong, citing its order pipeline.",
+    "not_conclude": "Guidance is a promise, not a result. Check it against actual results next quarter.",
+    "source": "Company commentary, Q2 FY27",
+    "kind": "business",
+    "confidence": "company"
+   },
+   {
+    "date": "27 Oct 2026",
+    "tag": "bad",
+    "importance": "medium",
+    "title": "Specialty chemicals revenue fell about 20% in the quarter",
+    "why": "Growth came almost entirely from pharma intermediates. The newer battery and semiconductor business, a big part of the long-term story, went backwards.",
+    "not_conclude": "New businesses are often lumpy early on. One weak quarter doesn’t mean the strategy failed, but watch the next few.",
+    "source": "Whalesbook, Indian Chemical News (company commentary)",
+    "kind": "business",
+    "confidence": "company"
+   },
+   {
+    "date": "Q2 FY27",
+    "tag": "neutral",
+    "importance": "low",
+    "title": "South Korea semiconductor-chemicals plant inaugurated ahead of schedule",
+    "why": "Adds capacity for the specialty business.",
+    "not_conclude": "A new plant is spending now; revenue from it comes later, if demand is there.",
+    "source": "Free Press Journal (company commentary)",
+    "kind": "business",
+    "confidence": "company"
+   },
+   {
+    "date": "Sep 2026 qtr",
+    "tag": "neutral",
+    "importance": "low",
+    "title": "Shareholding: foreign funds up to 22.6% (from 21.6%), mutual funds 14.4%, promoters unchanged at 32.66%",
+    "why": "Big investors added slightly during the quarter.",
+    "not_conclude": "Fund buying is a weak signal. Funds are often wrong and can sell just as quickly.",
+    "source": "Trendlyne, Value Research (shareholding filings)",
+    "kind": "market",
+    "confidence": "filing"
+   },
+   {
+    "date": "27 Oct 2026",
+    "tag": "neutral",
+    "importance": "low",
+    "title": "Share price jumped over 14% on results day",
+    "why": "Shows how much the market liked the results.",
+    "not_conclude": "A price jump isn’t new information about the business. When the price rises faster than profit, the bar for the next quarter rises too.",
+    "source": "Angel One",
+    "kind": "market",
+    "confidence": "news"
+   }
+  ]
+ },
+ "scenarios": {
+  "price": 3786.6,
+  "eps": 52.0,
+  "years": 5,
+  "target_return": 12,
+  "need_at_pe": [
+   40,
+   30
+  ],
+  "intro": "No one can honestly put a buy/sell percentage on a stock. Instead, here is what could happen to ₹1 lakh invested today at ₹3,787 a share, under three different futures.",
+  "cases": [
+   {
+    "name": "Growth slows",
+    "desc": "Profit keeps growing, but more slowly, and investors stop paying a premium.",
+    "growth": 12,
+    "pe": 30
+   },
+   {
+    "name": "Roughly as planned",
+    "desc": "Growth close to what management is aiming for; the premium shrinks a bit.",
+    "growth": 22,
+    "pe": 40
+   },
+   {
+    "name": "Everything goes right",
+    "desc": "Fast growth continues and investors stay excited.",
+    "growth": 30,
+    "pe": 55
+   }
+  ],
+  "today_pe": 72.8
+ }
+}

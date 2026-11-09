@@ -1,0 +1,46 @@
+{
+ "company": "Acutaas Chemicals Ltd (consolidated)",
+ "as_of": "2026-11-06",
+ "sector_type": "general",
+ "price": 3786.6,
+ "shares_outstanding_cr": 8.4088,
+ "revenue_cr": [
+  520.1,
+  616.7,
+  717.5,
+  1006.9,
+  1339.4
+ ],
+ "net_profit_cr": [
+  71.95,
+  83.29,
+  42.77,
+  158.71,
+  356.26
+ ],
+ "operating_cash_flow_cr": [
+  118.34,
+  292.17
+ ],
+ "total_debt_cr": 26.5,
+ "cash_cr": 224.8,
+ "equity_cr": 1668.4,
+ "ebit_cr": 486.0,
+ "interest_cr": 3.3,
+ "dividend_per_share": 2.5,
+ "promoter_holding_pct": 32.7,
+ "promoter_pledge_pct": 0,
+ "ttm_net_profit_cr": 437.1,
+ "promoter_change_4q_pp": 0,
+ "years": [
+  "FY22",
+  "FY23",
+  "FY24",
+  "FY25",
+  "FY26"
+ ],
+ "ocf_years": [
+  "FY25",
+  "FY26"
+ ]
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acutaas Chemicals Ltd · Stock health report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F5F8F8;--sheet:#FFFFFF;--ink:#1B2A31;--muted:#5B6B72;--rule:#D6DFE1;--lab:#0E6E6B;
+--ok:#2E8B57;--warn:#B7791F;--bad:#B83A2E;--ok-bg:#E3F2EA;--warn-bg:#FBF0DC;--bad-bg:#F8E3E0;
+--s0:#0E6E6B;--s1:#E0A43A;color-scheme:light;box-sizing:border-box;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1719;--sheet:#172226;--ink:#E4ECEE;
+--muted:#9AABB1;--rule:#2B3A3F;--lab:#4FB8B2;--ok:#5CC08A;--warn:#E3B160;--bad:#EE7D70;--ok-bg:#183326;
+--warn-bg:#3A2E16;--bad-bg:#3D1E1B;--s0:#4FB8B2;--s1:#E3B160;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1719;--sheet:#172226;--ink:#E4ECEE;--muted:#9AABB1;--rule:#2B3A3F;--lab:#4FB8B2;
+--ok:#5CC08A;--warn:#E3B160;--bad:#EE7D70;--ok-bg:#183326;--warn-bg:#3A2E16;--bad-bg:#3D1E1B;--s0:#4FB8B2;--s1:#E3B160;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Mukta","Noto Sans","Noto Sans Devanagari",system-ui,sans-serif;
+font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+.sheet{max-width:760px;margin:0 auto;background:var(--sheet);min-height:100vh;border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
+header.lab{border-top:6px solid var(--lab);padding:22px 22px 16px;border-bottom:2px solid var(--ink)}
+.lab-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+h1{font-size:30px;line-height:1.2;margin:10px 0 2px;font-weight:700}
+.sym{color:var(--muted);font-size:16px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 18px;margin-top:12px;font-size:15px}
+.meta b{font-weight:600}
+section{padding:18px 22px;border-bottom:1px solid var(--rule)}
+h2{font-size:21px;margin:0 0 10px;font-weight:700}
+h3{font-size:18px;margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--rule);border-radius:6px;padding:4px 10px;font-size:15px}
+.chip span{color:var(--muted);margin-right:6px}
+.rows{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:1.25fr .9fr 1.4fr;gap:4px 14px;padding:12px 0;border-bottom:1px dashed var(--rule);align-items:center}
+.row-concern .num{color:var(--bad)}
+.test-name{font-weight:600;display:block}
+.native{display:block;color:var(--muted);font-size:14px;line-height:1.3}
+.num{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;display:block;line-height:1.2}
+.flag{font-size:13px;font-weight:600;padding:1px 8px;border-radius:999px;display:inline-block;margin-top:2px}
+.flag-comfortable{color:var(--ok);background:var(--ok-bg)}.flag-watch{color:var(--warn);background:var(--warn-bg)}
+.flag-concern{color:var(--bad);background:var(--bad-bg)}
+.bar{position:relative;display:flex;height:12px;border-radius:6px;overflow:visible}
+.seg{height:100%;display:block}.seg:first-child{border-radius:6px 0 0 6px}.seg:last-of-type{border-radius:0 6px 6px 0}
+.seg-comfortable{background:var(--ok-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.seg-watch{background:var(--warn-bg);box-shadow:inset 0 0 0 1px var(--warn)}
+.seg-concern{background:var(--bad-bg);box-shadow:inset 0 0 0 1px var(--bad)}
+.marker{position:absolute;top:-5px;width:4px;height:22px;margin-left:-2px;background:var(--ink);border-radius:2px}
+.marker.over::after{content:"▶";position:absolute;left:6px;top:1px;font-size:12px;color:var(--ink)}
+.meaning{grid-column:1/-1;margin:2px 0 0;color:var(--muted);font-size:15.5px}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:15px;margin-bottom:6px}
+.lg i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.unit{color:var(--muted);margin-left:auto}
+.chart-wrap{overflow-x:auto}
+svg{width:100%;min-width:420px;height:auto;display:block}
+svg .s0,.lg .s0{fill:var(--s0);background:var(--s0)}svg .s1,.lg .s1{fill:var(--s1);background:var(--s1)}
+svg text{fill:var(--muted);font-size:13px;text-anchor:middle;font-family:inherit}
+svg text.v{fill:var(--ink);font-size:12px}
+svg rect.neg{fill:var(--bad)}svg line.zero{stroke:var(--muted);stroke-width:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ul{margin:0;padding-left:20px}li{margin:4px 0}
+ul.good li::marker{color:var(--ok);content:"● "}ul.bad li::marker{color:var(--bad);content:"■ "}
+ol{margin:0;padding-left:22px}
+.lesson{border-left:4px solid var(--lab)}
+.lesson p{margin:0 0 10px;max-width:65ch}
+.sim{margin-top:14px;border:1px solid var(--rule);border-radius:8px;padding:14px}
+.sim-start{margin:0 0 6px;font-size:15px;color:var(--muted)}
+.sim label{display:block;margin:8px 0;font-size:15.5px}
+.sim output{float:right;font-weight:700;font-variant-numeric:tabular-nums}
+.sim input[type=range]{width:100%;accent-color:var(--lab);margin-top:4px}
+.sim-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 0}
+.sim-out div{background:var(--paper);border-radius:6px;padding:8px 10px}
+.sim-out dt{font-size:13.5px;color:var(--muted);line-height:1.3}
+.sim-out dd{margin:2px 0 0;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+details{margin-top:6px}summary{cursor:pointer;color:var(--lab);font-weight:600}
+summary:focus-visible,input:focus-visible{outline:2px solid var(--lab);outline-offset:3px}
+footer{padding:16px 22px 28px;font-size:14px;color:var(--muted)}
+footer ul{padding-left:18px}.disc{margin-top:12px;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;color:var(--ink)}
+.events{list-style:none;padding:0;margin:0}
+.ev{border-left:4px solid var(--rule);padding:8px 0 8px 14px;margin:0 0 12px}
+.ev-good{border-color:var(--ok)}.ev-bad{border-color:var(--bad)}.ev-neutral{border-color:var(--muted)}
+.ev-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:14px}
+.ev-date{font-weight:600}
+.ev-tag{font-weight:600;padding:0 8px;border-radius:999px}
+.tag-good{color:var(--ok);background:var(--ok-bg)}.tag-bad{color:var(--bad);background:var(--bad-bg)}
+.tag-neutral{color:var(--muted);background:var(--paper)}
+.ev-imp{color:var(--muted)}.imp-high{color:var(--ink);font-weight:600}
+.ev-title{margin:4px 0 2px;font-weight:600;font-size:17px}
+.ev-line{margin:2px 0;font-size:15.5px;max-width:68ch}.ev-not{color:var(--muted)}
+.ev-src{margin:2px 0 0;font-size:13.5px;color:var(--muted)}
+.ev-meta{color:var(--muted);border:1px solid var(--rule);border-radius:4px;padding:0 6px;font-size:13px}
+.conf-news{border-style:dashed}
+.qopts{display:grid;gap:8px;margin:8px 0}
+.qopt{font:inherit;text-align:left;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer}
+.qopt:hover{border-color:var(--lab)}.qopt:focus-visible{outline:2px solid var(--lab);outline-offset:2px}
+.qopt.right{border-color:var(--ok);background:var(--ok-bg)}.qopt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.qres{margin:6px 0 0;max-width:68ch}
+.correction{background:var(--warn-bg);border-radius:6px;padding:8px 12px;font-size:15.5px}
+.tbl-wrap{overflow-x:auto}
+table.sc{border-collapse:collapse;width:100%;min-width:480px;font-variant-numeric:tabular-nums;font-size:15.5px}
+.sc th,.sc td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:right}
+.sc th[scope=row],.sc thead th:first-child{text-align:left}
+.sc thead th{font-size:14px;color:var(--muted);font-weight:600;border-bottom:2px solid var(--ink)}
+.sc .neg{color:var(--bad);font-weight:600}.sc .pos{color:var(--ok);font-weight:600}
+.needs{margin:0;padding-left:20px}
+.need-box{margin-top:14px;border:1px solid var(--lab);border-radius:8px;padding:12px 14px}
+.need-box h3{margin:0 0 6px}.need-box p{margin:0 0 6px;max-width:68ch}
+.how{background:var(--paper);border-radius:6px;padding:10px 12px;font-size:15.5px;max-width:68ch}
+.sc-name{display:block;font-weight:700}.sc-desc{display:block;font-weight:400;font-size:14px;color:var(--muted);line-height:1.35}
+.sc thead th{vertical-align:bottom;line-height:1.3}
+@media (max-width:620px){body{font-size:16px}h1{font-size:25px}
+.row{grid-template-columns:1fr auto}.range{grid-column:1/-1}.result{text-align:right}
+.two{grid-template-columns:1fr}.sim-out{grid-template-columns:1fr 1fr}.sim-out div:last-child{grid-column:1/-1}}
+@media (max-width:620px){
+table.sc{min-width:0}.sc thead{display:none}
+.sc tr{display:block;border:1px solid var(--rule);border-radius:8px;padding:10px 12px;margin:0 0 10px}
+.sc th[scope=row]{display:block;padding:0 0 6px;border:0}
+.sc td{display:flex;justify-content:space-between;gap:12px;padding:3px 0;border:0;text-align:right}
+.sc td::before{content:attr(data-l);color:var(--muted);text-align:left;font-weight:400}
+.sc td.big{font-size:19px;align-items:baseline}.sc td.big::before{font-size:15.5px}}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@page{margin:14mm 12mm}
+@media print{
+:root:root:root{--paper:#FFFFFF;--sheet:#FFFFFF;--ink:#111111;--muted:#4A5257;--rule:#C9D1D3;--lab:#0E6E6B;
+--ok:#2E7D4F;--warn:#9A6614;--bad:#A3332A;--ok-bg:#E3F2EA;--warn-bg:#FBF0DC;--bad-bg:#F8E3E0;--s0:#0E6E6B;--s1:#D4962E;
+color-scheme:light;padding:0}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important}
+body{background:#fff;font-size:11.5pt}
+.sheet{max-width:none;border:0;min-height:0}
+section,header.lab,footer{padding-left:0;padding-right:0}
+.chart-wrap,.tbl-wrap{overflow:visible}
+svg,table.sc,.cmp,.entry{min-width:0!important}
+.row,.ev,.sc tr,.need-box,.sim,.kpi,.chip,.qopt,.disc,.correction,.callout,figure,table{break-inside:avoid}
+h2,h3,.legend{break-after:avoid}
+.chart-wrap{break-before:avoid;break-inside:avoid}
+section:has(> .chart-wrap){break-inside:avoid}
+.sim input[type=range],.calc input[type=range],.calc select{display:none}
+.quiz .qres{display:none}
+a{color:inherit;text-decoration:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="lab">
+    <div class="lab-top"><span>Stock health report</span><span>₹3,787 · price as of 6 Nov 2026</span></div>
+    <h1>Acutaas Chemicals Ltd</h1>
+    <div class="sym">NSE: ACUTAAS · BSE: 543349</div>
+    <div class="meta"><div>Consolidated figures, FY26 (year ended March 2026)</div></div>
+    <div class="chips"><div class="chip"><span>Market cap</span>₹31,841 cr</div><div class="chip"><span>Net margin</span>26.6%</div><div class="chip"><span>Promoter holding</span>32.7% (unchanged 5 quarters)</div><div class="chip"><span>Dividend yield</span>0.1%</div></div>
+  </header>
+  <section><h2>The business in brief</h2><p>Acutaas (called Ami Organics until 2025, based in Surat) makes the chemical building blocks that drug companies turn into medicines (pharma intermediates). Think of a company making engine parts for car makers: it doesn’t sell cars, but cars can’t be built without it. It is also growing a newer business in specialty chemicals for batteries and semiconductors.</p></section>
+  <section>
+    <h2>Test results</h2>
+    <div class="rows">
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Revenue CAGR (4 yrs)</span><span class="native">Average yearly sales growth</span></div>
+        <div class="result"><span class="num">26.7%</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:25.00%"></span><span class="seg seg-watch" style="width:8.33%"></span><span class="seg seg-comfortable" style="width:66.67%"></span><span class="marker" style="left:61.17%"></span></div></div>
+        <p class="meaning">Sales grew from ₹520 cr to ₹1,339 cr, about 27% a year on average.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Profit CAGR (4 yrs)</span><span class="native">Average yearly profit growth</span></div>
+        <div class="result"><span class="num">49.2%</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:25.00%"></span><span class="seg seg-watch" style="width:8.33%"></span><span class="seg seg-comfortable" style="width:66.67%"></span><span class="marker" style="left:98.67%"></span></div></div>
+        <p class="meaning">Profit went from ₹72 cr to ₹356 cr, but dipped to ₹43 cr in FY24, so growth was uneven.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">ROCE</span><span class="native">Return on all capital in the business</span></div>
+        <div class="result"><span class="num">28.7%</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:25.00%"></span><span class="seg seg-watch" style="width:12.50%"></span><span class="seg seg-comfortable" style="width:62.50%"></span><span class="marker" style="left:71.75%"></span></div></div>
+        <p class="meaning">About ₹29 earned a year on every ₹100 invested in the business.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">ROE</span><span class="native">Return on the owners’ money</span></div>
+        <div class="result"><span class="num">21.4%</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:25.00%"></span><span class="seg seg-watch" style="width:12.50%"></span><span class="seg seg-comfortable" style="width:62.50%"></span><span class="marker" style="left:53.50%"></span></div></div>
+        <p class="meaning">About ₹21 of profit a year on every ₹100 of shareholders’ money.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Debt-to-equity</span><span class="native">Borrowings vs owners’ money</span></div>
+        <div class="result"><span class="num">0.02×</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-comfortable" style="width:25.00%"></span><span class="seg seg-watch" style="width:25.00%"></span><span class="seg seg-concern" style="width:50.00%"></span><span class="marker" style="left:1.00%"></span></div></div>
+        <p class="meaning">Almost no debt. It holds about ₹198 cr more cash than it owes.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Interest coverage</span><span class="native">Ability to pay interest</span></div>
+        <div class="result"><span class="num">147×</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:10.00%"></span><span class="seg seg-watch" style="width:15.00%"></span><span class="seg seg-comfortable" style="width:75.00%"></span><span class="marker over" style="left:100.00%"></span></div></div>
+        <p class="meaning">Profit covers interest more than 100 times over. Not a concern.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Cash conversion</span><span class="native">Is profit turning into cash?</span></div>
+        <div class="result"><span class="num">0.8×</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-concern" style="width:33.33%"></span><span class="seg seg-watch" style="width:20.00%"></span><span class="seg seg-comfortable" style="width:46.67%"></span><span class="marker" style="left:53.33%"></span></div></div>
+        <p class="meaning">About ₹80 of real cash for every ₹100 of reported profit (FY25–FY26), right at the comfortable line. Worth watching.</p>
+      </div>
+      <div class="row row-concern">
+        <div class="test"><span class="test-name">P/E (FY26)</span><span class="native">Price ÷ last year’s profit per share</span></div>
+        <div class="result"><span class="num">89.4</span><span class="flag flag-concern">■ Concern</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-comfortable" style="width:20.83%"></span><span class="seg seg-watch" style="width:20.83%"></span><span class="seg seg-concern" style="width:58.33%"></span><span class="marker" style="left:74.50%"></span></div></div>
+        <p class="meaning">Investors pay about ₹89 for every ₹1 of last year’s profit per share. The broad sector average is about ₹46, but close peers such as Sai Life (~95) and Anthem (~79) are also priced high.</p>
+      </div>
+      <div class="row row-concern">
+        <div class="test"><span class="test-name">P/E (TTM)</span><span class="native">Price ÷ last 4 quarters’ profit per share</span></div>
+        <div class="result"><span class="num">72.8</span><span class="flag flag-concern">■ Concern</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-comfortable" style="width:20.83%"></span><span class="seg seg-watch" style="width:20.83%"></span><span class="seg seg-concern" style="width:58.33%"></span><span class="marker" style="left:60.67%"></span></div></div>
+        <p class="meaning">On the latest 4 quarters’ profit, investors pay about ₹73 per ₹1. This is the more current figure, and the one the scenarios and calculator use.</p>
+      </div>
+      <div class="row row-comfortable">
+        <div class="test"><span class="test-name">Promoter pledge</span><span class="native">Founders’ shares given as loan collateral</span></div>
+        <div class="result"><span class="num">0%</span><span class="flag flag-comfortable">● Comfortable</span></div>
+        <div class="range"><div class="bar" aria-hidden="true"><span class="seg seg-comfortable" style="width:0.00%"></span><span class="seg seg-watch" style="width:20.00%"></span><span class="seg seg-concern" style="width:80.00%"></span><span class="marker" style="left:0.00%"></span></div></div>
+        <p class="meaning">No pledged shares, so no risk of lenders force-selling them in a fall.</p>
+      </div></div>
+    <p class="note">Ranges are general rules of thumb for learning. Normal levels differ by sector.</p>
+  </section>
+  <section><h2>How the business has grown</h2><div class="legend"><span class="lg"><i class="s0"></i>Revenue</span><span class="lg"><i class="s1"></i>Net profit</span><span class="unit">₹ crore</span></div><div class="chart-wrap"><svg viewBox="0 0 640 240" role="img" aria-describedby="hist-data" aria-label="How the business has grown"><rect class="s0" x="36.4" y="138.2" width="30.0" height="73.8" rx="2"><title>Revenue FY22: 520</title></rect><text class="v" x="51.4" y="133.2">520</text><rect class="s1" x="70.4" y="201.8" width="30.0" height="10.2" rx="2"><title>Net profit FY22: 72</title></rect><text class="v" x="85.4" y="196.8">72</text><text class="yr" x="70.4" y="232">FY22</text><rect class="s0" x="161.2" y="124.4" width="30.0" height="87.6" rx="2"><title>Revenue FY23: 617</title></rect><text class="v" x="176.2" y="119.4">617</text><rect class="s1" x="195.2" y="200.2" width="30.0" height="11.8" rx="2"><title>Net profit FY23: 83</title></rect><text class="v" x="210.2" y="195.2">83</text><text class="yr" x="195.2" y="232">FY23</text><rect class="s0" x="286.0" y="110.1" width="30.0" height="101.9" rx="2"><title>Revenue FY24: 718</title></rect><text class="v" x="301.0" y="105.1">718</text><rect class="s1" x="320.0" y="205.9" width="30.0" height="6.1" rx="2"><title>Net profit FY24: 43</title></rect><text class="v" x="335.0" y="200.9">43</text><text class="yr" x="320.0" y="232">FY24</text><rect class="s0" x="410.8" y="69.1" width="30.0" height="142.9" rx="2"><title>Revenue FY25: 1,007</title></rect><text class="v" x="425.8" y="64.1">1,007</text><rect class="s1" x="444.8" y="189.4" width="30.0" height="22.6" rx="2"><title>Net profit FY25: 159</title></rect><text class="v" x="459.8" y="184.4">159</text><text class="yr" x="444.8" y="232">FY25</text><rect class="s0" x="535.6" y="22.0" width="30.0" height="190.0" rx="2"><title>Revenue FY26: 1,339</title></rect><text class="v" x="550.6" y="17.0">1,339</text><rect class="s1" x="569.6" y="161.5" width="30.0" height="50.5" rx="2"><title>Net profit FY26: 356</title></rect><text class="v" x="584.6" y="156.5">356</text><text class="yr" x="569.6" y="232">FY26</text></svg></div><table class="sr-only" id="hist-data"><caption>How the business has grown (₹ crore)</caption><thead><tr><td></td><th scope="col">FY22</th><th scope="col">FY23</th><th scope="col">FY24</th><th scope="col">FY25</th><th scope="col">FY26</th></tr></thead><tbody><tr><th scope="row">Revenue</th><td>520</td><td>617</td><td>718</td><td>1,007</td><td>1,339</td></tr><tr><th scope="row">Net profit</th><td>72</td><td>83</td><td>43</td><td>159</td><td>356</td></tr></tbody></table></section>
+  <section><h2>What changed recently</h2><p class="note">Last 90 days: 11 Aug – 9 Nov 2026. Sources: company results and NSE/BSE filings first, news for context.</p><p class="correction"><b>Correction to an earlier view:</b> An earlier version of this report listed “promoters reducing their stake” as a concern. Filings show promoter holding has been unchanged at 32.66% for five quarters; the older decline came mainly from new share issues.</p><ul class="events">
+      <li class="ev ev-good">
+        <div class="ev-head"><span class="ev-date">27 Oct 2026</span>
+          <span class="ev-tag tag-good">● Good sign</span>
+          <span class="ev-imp imp-high">High importance</span><span class="ev-meta">Business</span><span class="ev-meta conf-filing">Official filing</span></div>
+        <p class="ev-title">Q2 FY27 results: revenue +43%, profit +71% vs the same quarter last year</p>
+        <p class="ev-line"><b>Why it matters:</b> Revenue was ₹437 cr and profit ₹123 cr. EBITDA margin rose to about 40% from 31%, so the business is earning more on every rupee of sales.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> One strong quarter isn’t a trend, and margins this high may not last if the product mix changes.</p>
+        <p class="ev-src">Company results (27 Oct 2026); Angel One, Indian Chemical News</p>
+      </li>
+      <li class="ev ev-good">
+        <div class="ev-head"><span class="ev-date">27 Oct 2026</span>
+          <span class="ev-tag tag-good">● Good sign</span>
+          <span class="ev-imp imp-medium">Medium importance</span><span class="ev-meta">Business</span><span class="ev-meta conf-company">Company statement</span></div>
+        <p class="ev-title">FY27 guidance raised to ~30% revenue growth and 38–40% EBITDA margin</p>
+        <p class="ev-line"><b>Why it matters:</b> Management expects the rest of the year to stay strong, citing its order pipeline.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> Guidance is a promise, not a result. Check it against actual results next quarter.</p>
+        <p class="ev-src">Company commentary, Q2 FY27</p>
+      </li>
+      <li class="ev ev-bad">
+        <div class="ev-head"><span class="ev-date">27 Oct 2026</span>
+          <span class="ev-tag tag-bad">■ Concern</span>
+          <span class="ev-imp imp-medium">Medium importance</span><span class="ev-meta">Business</span><span class="ev-meta conf-company">Company statement</span></div>
+        <p class="ev-title">Specialty chemicals revenue fell about 20% in the quarter</p>
+        <p class="ev-line"><b>Why it matters:</b> Growth came almost entirely from pharma intermediates. The newer battery and semiconductor business, a big part of the long-term story, went backwards.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> New businesses are often lumpy early on. One weak quarter doesn’t mean the strategy failed, but watch the next few.</p>
+        <p class="ev-src">Whalesbook, Indian Chemical News (company commentary)</p>
+      </li>
+      <li class="ev ev-neutral">
+        <div class="ev-head"><span class="ev-date">Q2 FY27</span>
+          <span class="ev-tag tag-neutral">◆ Neutral</span>
+          <span class="ev-imp imp-low">Low importance</span><span class="ev-meta">Business</span><span class="ev-meta conf-company">Company statement</span></div>
+        <p class="ev-title">South Korea semiconductor-chemicals plant inaugurated ahead of schedule</p>
+        <p class="ev-line"><b>Why it matters:</b> Adds capacity for the specialty business.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> A new plant is spending now; revenue from it comes later, if demand is there.</p>
+        <p class="ev-src">Free Press Journal (company commentary)</p>
+      </li>
+      <li class="ev ev-neutral">
+        <div class="ev-head"><span class="ev-date">Sep 2026 qtr</span>
+          <span class="ev-tag tag-neutral">◆ Neutral</span>
+          <span class="ev-imp imp-low">Low importance</span><span class="ev-meta">Market reaction</span><span class="ev-meta conf-filing">Official filing</span></div>
+        <p class="ev-title">Shareholding: foreign funds up to 22.6% (from 21.6%), mutual funds 14.4%, promoters unchanged at 32.66%</p>
+        <p class="ev-line"><b>Why it matters:</b> Big investors added slightly during the quarter.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> Fund buying is a weak signal. Funds are often wrong and can sell just as quickly.</p>
+        <p class="ev-src">Trendlyne, Value Research (shareholding filings)</p>
+      </li>
+      <li class="ev ev-neutral">
+        <div class="ev-head"><span class="ev-date">27 Oct 2026</span>
+          <span class="ev-tag tag-neutral">◆ Neutral</span>
+          <span class="ev-imp imp-low">Low importance</span><span class="ev-meta">Market reaction</span><span class="ev-meta conf-news">News report (unconfirmed)</span></div>
+        <p class="ev-title">Share price jumped over 14% on results day</p>
+        <p class="ev-line"><b>Why it matters:</b> Shows how much the market liked the results.</p>
+        <p class="ev-line ev-not"><b>What not to conclude:</b> A price jump isn’t new information about the business. When the price rises faster than profit, the bar for the next quarter rises too.</p>
+        <p class="ev-src">Angel One</p>
+      </li></ul></section>
+  <section class="two"><div><h2>What’s going well</h2><ul class="good"><li>Fast growth: in FY26, sales rose 33% and profit rose 124%.</li><li>Wider margins: operating margin rose from about 23% to 36%.</li><li>Almost no debt, with net cash in hand.</li><li>Management raised FY27 guidance to about 30% revenue growth (from 25%) and a 38–40% EBITDA margin.</li></ul></div><div><h2>What to watch out for</h2><ul class="bad"><li>Expensive: P/E of about 89, roughly double the broad sector average (~46), though close contract-manufacturing peers also trade at 80–95. The stock is up about 135% in a year, so high expectations are already in the price.</li><li>The newer specialty chemicals business (battery and semiconductor chemicals) shrank about 20% in the latest quarter. The diversification story isn’t proven yet.</li><li>Very volatile: it moves about 3.4× as much as the Nifty, and fell 10% in a single day in April 2026.</li><li>Promoter stake fell from about 41% after the IPO to 32.7%, mostly through new share issues (dilution) plus some promoter sales in 2025. It has been unchanged for the last 5 quarters.</li></ul></div></section>
+  <section><h2>What has to go right?</h2><p>No one can honestly put a buy/sell percentage on a stock. Instead, here is what could happen to ₹1 lakh invested today at ₹3,787 a share, under three different futures.</p><p class="how">How this works: a share’s future price = the company’s profit per share then × how much investors pay for each ₹1 of that profit (the P/E). We don’t know either number, so here are three possible futures.</p><div class="tbl-wrap"><table class="sc"><thead><tr><th scope='col'>If…</th><th scope='col'>Profit grows every year by</th><th scope='col'>Investors then pay, per ₹1 of profit</th><th scope='col'>₹1 lakh today becomes (in 5 yrs)</th><th scope='col'>Works out to, per year</th></tr></thead><tbody><tr><th scope='row'><span class='sc-name'>Growth slows</span><span class="sc-desc">Profit keeps growing, but more slowly, and investors stop paying a premium.</span></th><td data-l='Profit grows every year by'>12%</td><td data-l='Investors then pay, per ₹1 of profit'>₹30</td><td class='neg big' data-l='₹1 lakh today becomes (in 5 yrs)'>₹72,605</td><td class='neg' data-l='Works out to, per year'>-6.2%</td></tr><tr><th scope='row'><span class='sc-name'>Roughly as planned</span><span class="sc-desc">Growth close to what management is aiming for; the premium shrinks a bit.</span></th><td data-l='Profit grows every year by'>22%</td><td data-l='Investors then pay, per ₹1 of profit'>₹40</td><td class='pos big' data-l='₹1 lakh today becomes (in 5 yrs)'>₹1,48,461</td><td class='pos' data-l='Works out to, per year'>+8.2%</td></tr><tr><th scope='row'><span class='sc-name'>Everything goes right</span><span class="sc-desc">Fast growth continues and investors stay excited.</span></th><td data-l='Profit grows every year by'>30%</td><td data-l='Investors then pay, per ₹1 of profit'>₹55</td><td class='pos big' data-l='₹1 lakh today becomes (in 5 yrs)'>₹2,80,436</td><td class='pos' data-l='Works out to, per year'>+22.9%</td></tr></tbody></table></div><div class="need-box"><h3>The key question</h3><p>Today investors pay about ₹73 for every ₹1 of yearly profit.</p><p>To earn about 12% a year (roughly what a Nifty index fund has averaged over long periods), profit must grow every year for 5 years by about 26% if investors then pay ₹40 per ₹1 of profit, or about 34% if investors then pay ₹30 per ₹1 of profit.</p></div><p class="note">Growth rates and P/Es are illustrative assumptions, not forecasts.</p></section>
+  <section><h2>Questions a smart investor asks next</h2><ol><li>Will the company keep raising money by issuing new shares? Each issue means existing shareholders own a little less.</li><li>Is the margin jump permanent (better product mix) or temporary (a few large orders)?</li><li>Can it grow 25%+ a year for many years? Paying ₹73–89 for every ₹1 of profit assumes roughly that.</li></ol></section>
+  <section class="lesson"><h2>Today’s lesson: What does paying ₹73 for ₹1 of profit mean?</h2><p>Suppose a shop earns ₹1 lakh a year and you pay ₹73 lakh for it. Even if its profit grows 25% every year, in 5 years it will earn about ₹3 lakh a year: three times as much.</p><p>If buyers then pay only ₹30 for every ₹1 of profit (still above the sector average), the shop is worth about ₹92 lakh. Profit tripled, but your money grew only about 26%, roughly 4.7% a year.</p><p>That’s why a great company and a great investment are not the same thing. The price you pay matters.</p><p>The calculator below starts from Acutaas’s real numbers. Move the sliders to see how growth, years and what investors pay per ₹1 of profit change the price.</p>
+    <div class="sim" data-peryear="per year" data-sim='{&quot;price&quot;: 3786.6, &quot;eps&quot;: 52.0}'>
+      <h3>Try it yourself</h3>
+      <p class="sim-start">Starting point: EPS ₹52 (last 4 quarters) at a share price of ₹3,787</p>
+      <label>Profit growth per year <output id="og">25%</output>
+        <input type="range" id="ig" min="-20" max="60" step="1" value="25"></label>
+      <label>Years <output id="oy">5</output>
+        <input type="range" id="iy" min="1" max="10" step="1" value="5"></label>
+      <label>What investors then pay per ₹1 of profit (P/E) <output id="op">30</output>
+        <input type="range" id="ip" min="5" max="150" step="1" value="30"></label>
+      <dl class="sim-out">
+        <div><dt>Profit per share then</dt><dd id="reps">–</dd></div>
+        <div><dt>Share price then</dt><dd id="rprice">–</dd></div>
+        <div><dt>Change from today’s price</dt><dd id="rchg">–</dd></div>
+      </dl>
+    </div></section>
+  <section class="quiz" data-answer="1" data-right="Correct." data-wrong="Not quite."><h2>Quick check</h2><p>Acutaas’s P/E is about 73 (based on the last 4 quarters). What does that tell you?</p><div class="qopts"><button type="button" class="qopt" data-i="0">The company will grow 73 times</button><button type="button" class="qopt" data-i="1">Investors are paying about ₹73 for every ₹1 of yearly profit per share</button><button type="button" class="qopt" data-i="2">You will get your money back in 73 years</button></div><p class="qres" aria-live="polite" hidden><b class="qverdict"></b> P/E compares today’s price with yearly profit per share. It doesn’t predict growth, and it isn’t a payback period: the company keeps most of its profit instead of paying it out to you.</p></section>
+  <footer>
+    <strong>Sources</strong>
+    <ul><li>Tickertape: FY26 results, valuation; Trendlyne: price (6 Nov 2026) and shareholding</li><li>Company Q2 FY27 results (27 Oct 2026), via Angel One and Indian Chemical News</li><li>Screener.in and Value Research: history, shareholding</li><li>Simply Wall St: debt history</li><li>Company investor presentation (NSE, May 2026)</li></ul>
+    <p class="disc">This report is for learning only. It is not a buy or sell recommendation. Figures are as of the dates shown; check the company’s official filings before making any decision.</p>
+  </footer>
+</main>
+<script>
+(function(){var q=document.querySelector('.quiz');if(!q)return;var ans=+q.getAttribute('data-answer');
+var res=q.querySelector('.qres'),v=q.querySelector('.qverdict');
+q.querySelectorAll('.qopt').forEach(function(b){b.addEventListener('click',function(){
+q.querySelectorAll('.qopt').forEach(function(x){x.classList.remove('right','wrong')});
+var ok=+b.getAttribute('data-i')===ans;b.classList.add(ok?'right':'wrong');
+if(!ok)q.querySelector('.qopt[data-i="'+ans+'"]').classList.add('right');
+v.textContent=q.getAttribute(ok?'data-right':'data-wrong');res.hidden=false;});});})();
+(function(){var box=document.querySelector('.sim');if(!box)return;
+var d=JSON.parse(box.getAttribute('data-sim'));var g=document.getElementById('ig'),y=document.getElementById('iy'),p=document.getElementById('ip');
+var nf=new Intl.NumberFormat('en-IN',{maximumFractionDigits:0});
+var perYear=box.getAttribute('data-peryear')||'';
+function run(){var gr=+g.value/100,yr=+y.value,pe=+p.value;
+document.getElementById('og').textContent=g.value+'%';document.getElementById('oy').textContent=yr;document.getElementById('op').textContent=pe;
+var eps=d.eps*Math.pow(1+gr,yr),price=eps*pe,chg=price/d.price-1,cagr=Math.pow(price/d.price,1/yr)-1;
+document.getElementById('reps').textContent='₹'+nf.format(eps);document.getElementById('rprice').textContent='₹'+nf.format(price);
+document.getElementById('rchg').textContent=(chg>=0?'+':'')+Math.round(chg*100)+'% ('+(cagr>=0?'+':'')+(cagr*100).toFixed(1)+'% '+perYear+')';}
+[g,y,p].forEach(function(el){el.addEventListener('input',run)});run();})();
+</script>
+</body>
+</html>
